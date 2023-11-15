@@ -11,13 +11,15 @@
       height: 100vh;
       margin: 0;
     }
-    #startButton, .circle {
-      display: none;
+    button, .circle {
       width: 50px;
       height: 50px;
       border-radius: 50%;
       margin: 10px;
       cursor: pointer;
+    }
+    .circle {
+      display: none;
     }
   </style>
 </head>
@@ -54,10 +56,12 @@
     const activeCircle = circles[randomIndex];
     
     activeCircle.style.backgroundColor = 'lightgreen';
+    activeCircle.style.display = 'block';
 
     setTimeout(() => {
       if (gameActive) {
         activeCircle.style.backgroundColor = '';
+        activeCircle.style.display = 'none';
         startNextRound();
       }
     }, 1500);
