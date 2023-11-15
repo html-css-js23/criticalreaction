@@ -12,10 +12,10 @@
       margin: 0;
     }
     button, .circle {
-      width: 50px;
-      height: 50px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
-      margin: 10px;
+      margin: 20px;
       cursor: pointer;
     }
     .circle {
@@ -89,14 +89,4 @@
   function endGame() {
     gameActive = false;
     document.getElementById('circles').style.display = 'none';
-    alert(`Game Over! Your score: ${score}`);
-    location.reload(); // Refresh to restart
-  }
-
-  function getRandomTime() {
-    return Math.floor(Math.random() * 4000) + 1000; // Random time between 1 to 5 seconds
-  }
-</script>
-
-</body>
-</html>
+    alert(`Game Over! Your score: ${score⬤
