@@ -51,6 +51,11 @@
 
     circle.style.backgroundColor = 'lightgreen';
 
+    // Attach click event listener directly to the created circle
+    circle.addEventListener('click', function() {
+      checkClick(this);
+    });
+
     setTimeout(() => {
       if (gameActive) {
         circle.style.backgroundColor = '';
@@ -70,6 +75,14 @@
       }, getRandomTime());
     } else {
       endGame();
+    }
+  }
+
+  function checkClick(clickedCircle) {
+    if (clickedCircle.style.backgroundColor === 'lightgreen') {
+      score++;
+      clickedCircle.style.backgroundColor = '';
+      document.body.removeChild(clickedCircle);
     }
   }
 
