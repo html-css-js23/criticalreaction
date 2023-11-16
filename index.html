@@ -15,23 +15,14 @@
       width: 80px;
       height: 80px;
       border-radius: 50%;
-      margin: 20px;
       cursor: pointer;
-    }
-    .circle {
-      display: none;
+      position: absolute;
     }
   </style>
 </head>
 <body>
 
 <button id="startButton" onclick="startGame()">Start Game</button>
-
-<div id="circles">
-  <div class="circle" onclick="checkClick(this)"></div>
-  <div class="circle" onclick="checkClick(this)"></div>
-  <div class="circle" onclick="checkClick(this)"></div>
-</div>
 
 <script>
   let rounds = 5;
@@ -41,27 +32,29 @@
   function startGame() {
     gameActive = true;
     document.getElementById('startButton').style.visibility = 'hidden';
-    document.getElementById('circles').style.display = 'flex';
-
-    setTimeout(() => {
-      if (gameActive) {
-        activateRandomCircle();
-      }
-    }, getRandomTime());
+    activateRandomCircle();
   }
 
   function activateRandomCircle() {
-    const circles = document.getElementsByClassName('circle');
-    const randomIndex = Math.floor(Math.random() * circles.length);
-    const activeCircle = circles[randomIndex];
-    
-    activeCircle.style.backgroundColor = 'lightgreen';
-    activeCircle.style.display = 'block';
+    const circle = document.createElement('div');
+    circle.className = 'circle';
+    document.body.appendChild(circle);
+
+    const maxX = window.innerWidth - 80;
+    const maxY = window.innerHeight - 80;
+
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
+
+    circle.style.left = `${randomX}px`;
+    circle.style.top = `${randomY}px`;
+
+    circle.style.backgroundColor = 'lightgreen';
 
     setTimeout(() => {
       if (gameActive) {
-        activeCircle.style.backgroundColor = '';
-        activeCircle.style.display = 'none';
+        circle.style.backgroundColor = '';
+        document.body.removeChild(circle);
         startNextRound();
       }
     }, 1500);
@@ -80,17 +73,8 @@
     }
   }
 
-  function checkClick(clickedCircle) {
-    if (clickedCircle.style.backgroundColor === 'lightgreen') {
-      score++;
-      clickedCircle.style.backgroundColor = '';
-      clickedCircle.style.display = 'none';
-    }
-  }
-
   function endGame() {
     gameActive = false;
-    document.getElementById('circles').style.display = 'none';
     alert(`Game Over! Your score: ${score}`);
     location.reload(); // Refresh to restart
   }
