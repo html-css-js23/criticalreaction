@@ -52,9 +52,9 @@
     circle.style.backgroundColor = 'lightgreen';
 
     // Attach click event listener directly to the created circle
-    circle.addEventListener('click', function() {
+    circle.onclick = function() {
       checkClick(this);
-    });
+    };
 
     setTimeout(() => {
       if (gameActive) {
