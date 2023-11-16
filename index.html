@@ -72,7 +72,6 @@
     if (rounds > 0) {
       setTimeout(() => {
         if (gameActive) {
-          resetCircles();
           activateRandomCircle();
         }
       }, getRandomTime());
@@ -84,14 +83,8 @@
   function checkClick(clickedCircle) {
     if (clickedCircle.style.backgroundColor === 'lightgreen') {
       score++;
-    }
-  }
-
-  function resetCircles() {
-    const circles = document.getElementsByClassName('circle');
-    for (let i = 0; i < circles.length; i++) {
-      circles[i].style.backgroundColor = '';
-      circles[i].style.display = 'none';
+      clickedCircle.style.backgroundColor = '';
+      clickedCircle.style.display = 'none';
     }
   }
 
