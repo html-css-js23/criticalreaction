@@ -32,7 +32,20 @@
   function startGame() {
     gameActive = true;
     document.getElementById('startButton').style.visibility = 'hidden';
-    activateRandomCircle();
+    startNextRound();
+  }
+
+  function startNextRound() {
+    if (rounds > 0) {
+      activateRandomCircle();
+      setTimeout(() => {
+        if (gameActive) {
+          startNextRound();
+        }
+      }, getRandomTime());
+    } else {
+      endGame();
+    }
   }
 
   function activateRandomCircle() {
@@ -60,29 +73,13 @@
       if (gameActive) {
         circle.style.backgroundColor = '';
         document.body.removeChild(circle);
-        startNextRound();
       }
     }, 1500);
-  }
-
-  function startNextRound() {
-    rounds--;
-    if (rounds > 0) {
-      setTimeout(() => {
-        if (gameActive) {
-          activateRandomCircle();
-        }
-      }, getRandomTime());
-    } else {
-      endGame();
-    }
   }
 
   function checkClick(clickedCircle) {
     if (clickedCircle.style.backgroundColor === 'lightgreen') {
       score++;
-      clickedCircle.style.backgroundColor = '';
-      document.body.removeChild(clickedCircle);
     }
   }
 
