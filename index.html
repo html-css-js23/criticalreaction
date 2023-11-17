@@ -28,6 +28,7 @@
   let rounds = 5;
   let score = 0;
   let gameActive = false;
+  let currentCircle = null;
 
   function startGame() {
     gameActive = true;
@@ -40,6 +41,7 @@
       activateRandomCircle();
       setTimeout(() => {
         if (gameActive) {
+          removeCurrentCircle();
           startNextRound();
         }
       }, getRandomTime());
@@ -49,9 +51,9 @@
   }
 
   function activateRandomCircle() {
-    const circle = document.createElement('div');
-    circle.className = 'circle';
-    document.body.appendChild(circle);
+    currentCircle = document.createElement('div');
+    currentCircle.className = 'circle';
+    document.body.appendChild(currentCircle);
 
     const maxX = window.innerWidth - 80;
     const maxY = window.innerHeight - 80;
@@ -59,22 +61,29 @@
     const randomX = Math.floor(Math.random() * maxX);
     const randomY = Math.floor(Math.random() * maxY);
 
-    circle.style.left = `${randomX}px`;
-    circle.style.top = `${randomY}px`;
+    currentCircle.style.left = `${randomX}px`;
+    currentCircle.style.top = `${randomY}px`;
 
-    circle.style.backgroundColor = 'lightgreen';
+    currentCircle.style.backgroundColor = 'lightgreen';
 
     // Attach click event listener directly to the created circle
-    circle.onclick = function() {
+    currentCircle.onclick = function() {
       checkClick(this);
     };
 
     setTimeout(() => {
       if (gameActive) {
-        circle.style.backgroundColor = '';
-        document.body.removeChild(circle);
+        removeCurrentCircle();
       }
     }, 1500);
+  }
+
+  function removeCurrentCircle() {
+    if (currentCircle) {
+      currentCircle.style.backgroundColor = '';
+      document.body.removeChild(currentCircle);
+      currentCircle = null;
+    }
   }
 
   function checkClick(clickedCircle) {
